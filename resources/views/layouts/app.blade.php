@@ -20,13 +20,10 @@
     <body class="font-sans antialiased">
         <x-banner />
 
-        <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+        @livewire('navigation-menu')
+        
+        <div class="flex justify-center items-center">
+            {{ $slot }}
         </div>
 
         @stack('modals')

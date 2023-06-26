@@ -26,3 +26,23 @@ Route::middleware([
         return view('welcome');
     })->name('welcome');
 });
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/createpost', function () {
+        return view('createpost');
+    })->name('createpost');
+});
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/chats', function () {
+        return view('chats');
+    })->name('chats');
+});
