@@ -1,9 +1,9 @@
 <div>
     <form wire:submit.prevent="submit" class="flex flex-col items-center justify-center h-4/5">
             <h1 class="font-bold text-lg">Título do Post</h1>
-            <input type="text" style="box-shadow: red 0px 0px 7px;" class="w-full mb-12" required minlength="5" wire:model="title">
+            <input type="text" style="box-shadow: black 0px 0px 7px;" class="w-full mb-12" required minlength="5" wire:model="title">
 
-            <div class="max-w-xs pb-1 rounded-xl bg-stone-300" style="box-shadow: red 0px 5px 15px;">
+            <div class="max-w-xs pb-1 rounded-xl bg-stone-300" style="box-shadow: black 0px 5px 15px;">
                 <div class="relative rounded-xl">
                     <label for="arquivo" class="cursor-pointer absolute w-full h-full text-transparent">Enviar arquiv</label>
                     <input class="hidden" type="file" wire:model="image" name="arquivo" id="arquivo">
@@ -35,7 +35,9 @@
                 <option value="month">1 Mês</option>
             </select>
             
-            <button onclick="getLocation()"  class="rounded-lg mt-3 mb-1 py-2 px-4 bg-red-500 text-white font-bold text-md  duration-100 hover:transform hover:bg-red-400 hover:scale-105">Publicar</button>
+            <button onclick="getLocation()" class="inline-flex items-center mt-5 px-3 py-2 border border-transparent text-sm leading-4 font-bold rounded-md text-white bg-blue-500 hover:text-gray-100 hover:bg-blue-600 focus:outline-none focus:bg-blue-500 active:bg-blue-700 transition">
+                PUBLICAR
+            </button>
 
             <input type="hidden" wire:model="latitude" id="latitude">
             <input type="hidden" wire:model="longitude" id="longitude">

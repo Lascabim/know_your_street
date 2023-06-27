@@ -7,6 +7,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Posts;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class ImagePreview extends Component
 {
@@ -79,6 +80,14 @@ class ImagePreview extends Component
         $post->longitude = $this->longitude;
         $post->date = now();
         $post->expire = $expiration;
+
+        // Generate a unique URL for the post
+        do {
+            $url = Str::random(16);
+        } while (Posts::where('url', $url)->exists());
+
+        $post->url = $url;
+
         $post->save();
 
         $this->reset(['image', 'title']);

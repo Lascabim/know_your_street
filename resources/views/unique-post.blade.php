@@ -1,12 +1,8 @@
 <x-app-layout>
-    <div class="flex flex-col items-center justify-center">
-      <button onclick="getLocation()">Get Current Distance</button>
-
-      @foreach($posts as $post)
-        <div class="rounded-lg max-w-[400px] w-[85vw] mb-14 px-5 py-3" style="box-shadow: rgba(0, 0, 0, 0.84) 0px 3px 8px;">
+    <div class="flex flex-col items-center justify-center gap-4">
+      <div class="rounded-lg max-w-[400px] w-[85vw] px-5 py-3" style="box-shadow: rgba(0, 0, 0, 0.84) 0px 3px 8px;">
           <div class="flex justify-between items-center mb-2">
             <div class="flex justify-start items-center gap-2">
-              @foreach($users as $user)
                 @if($user->name === $post->author)
                   @if ($user->profile_photo_path == null )
                   @php
@@ -22,7 +18,6 @@
 
                 <h1 class="text-md">{{ $user->name }}</h1>
                 @endif
-              @endforeach
             </div>
           </div>
 
@@ -49,47 +44,11 @@
 
           </div>
         </div>
-      @endforeach
+
+        <a href="{{ route('createpost') }}" :active="request()->routeIs('createpost')">
+          <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-bold rounded-md text-white bg-blue-500 hover:text-gray-100 hover:bg-blue-600 focus:outline-none focus:bg-blue-500 active:bg-blue-700 transition">
+            CREATE A NEW POST !
+          </button>
+        </a>
     </div>
-    
 </x-app-layout>
-
-
-
-<script>
-    function calcCrow(lat1, lon1, lat2, lon2) {
-
-      var R = 6371; // km
-      var dLat = toRad(lat2 - lat1);
-      var dLon = toRad(lon2 - lon1);
-      var lat1 = toRad(lat1);
-      var lat2 = toRad(lat2);
-
-      var a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
-      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      var d = R * c;
-      alert(d);
-    }
-
-    // Converts numeric degrees to radians
-    function toRad(Value) {
-      return (Value * Math.PI) / 180;
-    }
-
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-      } else {
-        alert("Geolocation is not supported by this browser.");
-      }
-    }
-
-    function showPosition(position) {
-      var latitude = position.coords.latitude;
-      var longitude = position.coords.longitude;
-
-      calcCrow(latitude, longitude, latitude+0.035, longitude+0.035);
-    }
-</script>

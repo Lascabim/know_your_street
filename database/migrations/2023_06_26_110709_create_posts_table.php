@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('latitude');
             $table->date('date');
             $table->dateTime('expire');
+            $table->string('url');
             $table->timestamps();
         });
     }
