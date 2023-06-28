@@ -4,15 +4,20 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Artisan;
 
 class Kernel extends ConsoleKernel
 {
     /**
      * Define the application's command schedule.
      */
-    protected function schedule(Schedule $schedule): void
+    protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('posts:delete-expired')->hourly();
+
+        $schedule->call(function () {
+            Artisan::call('posts:delete-expired');
+        })->name('delete-expired-posts')->onOneServer();
     }
 
     /**
@@ -24,4 +29,8 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+
+    protected $commands = [
+        \App\Console\Commands\DeleteExpiredPosts::class,
+    ];
 }

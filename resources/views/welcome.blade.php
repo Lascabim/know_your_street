@@ -1,10 +1,58 @@
 <x-app-layout>
     <div class="flex flex-col items-center justify-center">
-      <button onclick="getLocation()">Get Current Distance</button>
+      <!-- <p id="latitude"></p>
+      <p id="longitude"></p> -->
 
       @foreach($posts as $post)
-        <div class="rounded-lg max-w-[400px] w-[85vw] mb-14 px-5 py-3" style="box-shadow: rgba(0, 0, 0, 0.84) 0px 3px 8px;">
-          <div class="flex justify-between items-center mb-2">
+      <script>
+        function getLocation() {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+          } else {
+            console.log("Geolocation is not supported by this browser.");
+          }
+        }
+
+        function showPosition(position) {
+          var latitude = position.coords.latitude;
+          var longitude = position.coords.longitude;
+
+          var postLatitude = {{ $post->latitude }};
+          var postLongitude = {{ $post->longitude }};
+
+          // Get the CSRF token value
+          var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+          // Make an AJAX request to the Laravel route
+            $.ajax({
+                url: '/get-location',
+                method: 'POST',
+                data: {
+                    latitude: latitude,
+                    longitude: longitude,
+                    postLatitude: postLatitude,
+                    postLongitude: postLongitude          
+                },
+                success: function(response) {
+                    // Handle the response from the server
+                    console.log(response);
+
+                    if(response.success) {
+                      $('#div-' + {{ $loop->index }}).show();
+                    } else {
+                      $('#div-' + {{ $loop->index }}).hide();
+                    }
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+          }
+
+          getLocation();
+      </script>
+        <div id="div-{{ $loop->index }}" class="rounded-lg max-w-[400px] w-[85vw] mb-14 py-3 " style="box-shadow: rgba(0, 0, 0, 0.84) 0px 3px 8px;">
+          <div class="flex justify-between items-center mb-2 px-3">
             <div class="flex justify-start items-center gap-2">
               @foreach($users as $user)
                 @if($user->name === $post->author)
@@ -26,70 +74,31 @@
             </div>
           </div>
 
-          <div class="rounded-xl" style="box-shadow: rgba(0, 0, 0, 0.34) 0px 3px 8px;">
-            <img class="w-full font-bold rounded-xl" src="{{ $post->image_path }}" alt="">
-          </div>
+          @if ($post->image_path !== null )
+            <div class="rounded-xl py-3">
+              <img class="w-full font-bold" src="{{ $post->image_path }}" alt="">
+            </div>
+          @endif
 
           <div>
             <p class="text-center mt-2">Message: <strong> {{ $post->title }} </strong></p>
           </div>
           
-          <div class="flex items-center justify-between relative p-3">
+          <div class="flex items-center justify-between relative px-3 p-3">
             <a href="" class="group">
-              <i class="scale-125 mt-3 bottom-4 fa-regular fa-comments"></i>
+              <i class="scale-125 fa-regular fa-comments"></i>
             </a>
 
             <a href="https://www.google.com/maps/search/{{$post->latitude}},{{$post->longitude}}" class="group">
-              <i class="scale-125 mt-3 bottom-4 fa-regular fa-map"></i>
+              <i class="scale-125 fa-regular fa-map"></i>
             </a>
 
             <a href="{{ route('welcome/', ['url' => $post->url]) }}" class="group">
-              <i class="scale-125 mt-3 bottom-4 fa-solid fa-up-right-from-square"></i>
+              <i class="scale-125 fa-solid fa-up-right-from-square"></i>
             </a>
 
           </div>
         </div>
       @endforeach
     </div>
-    
 </x-app-layout>
-
-
-
-<script>
-    function calcCrow(lat1, lon1, lat2, lon2) {
-
-      var R = 6371; // km
-      var dLat = toRad(lat2 - lat1);
-      var dLon = toRad(lon2 - lon1);
-      var lat1 = toRad(lat1);
-      var lat2 = toRad(lat2);
-
-      var a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
-      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      var d = R * c;
-      alert(d);
-    }
-
-    // Converts numeric degrees to radians
-    function toRad(Value) {
-      return (Value * Math.PI) / 180;
-    }
-
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-      } else {
-        alert("Geolocation is not supported by this browser.");
-      }
-    }
-
-    function showPosition(position) {
-      var latitude = position.coords.latitude;
-      var longitude = position.coords.longitude;
-
-      calcCrow(latitude, longitude, latitude+0.035, longitude+0.035);
-    }
-</script>
