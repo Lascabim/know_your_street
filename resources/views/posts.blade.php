@@ -28,7 +28,7 @@
           @endif
 
           <div>
-            <p class="text-center mt-2">Message: <strong> {{ $post->title }} </strong></p>
+            <p class="text-left px-3 mt-2">Message: <strong> {{ $post->title }} </strong></p>
           </div>
           
           <div class="flex items-center justify-between relative px-3 p-3">

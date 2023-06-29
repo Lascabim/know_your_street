@@ -1,5 +1,36 @@
 <x-app-layout>
-    <div class="flex flex-col items-center justify-center gap-4">
+  <div class="flex flex-col flex-wrap items-center justify-center gap-10 px-8">
+    <div class="flex flex-col flex-wrap items-center justify-center rounded-xl" style="box-shadow: rgba(0, 0, 0, 0.84) 0px 3px 8px;">
+      <div class="flex justify-start items-center gap-2 py-4 px-6">
+        @if ($user->profile_photo_path == null )
+          @php
+            $firstLetter = strtoupper(substr($user->name, 0, 1));
+          @endphp
+                    
+          <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+            <img class="h-24 rounded-full object-cover" src="https://ui-avatars.com/api/?name={{$firstLetter}}&color=7F9CF5&background=EBF4FF" alt="" />
+          </button>
+        @else
+          <img class="rounded-full h-24" src="/storage/{{ $user->profile_photo_path }}" alt="">            
+        @endif
+          <a href="{{ route('profile/', ['name' => $user->name]) }}" class="group"><h1 class="text-2xl">{{ $user->name }}</h1></a>
+      </div>
+      
+      <div>
+          @php
+            $memberSince = substr($user->created_at, 0, 10);
+          @endphp
+
+        <h1 class="font-bold text-lg">Membro desde {{ $memberSince }}</h1>
+      </div>
+    </div>
+
+    <div>
+      <h1 class="font-bold text-2xl">Publicações Ativas {{ count($posts)}}</h1>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-center gap-12">
+    @foreach($posts as $post)
       <div class="rounded-lg max-w-[400px] w-[85vw] mb-14 py-3" style="box-shadow: rgba(0, 0, 0, 0.84) 0px 3px 8px;">
           <div class="flex justify-between items-center mb-2 px-3">
             <div class="flex justify-start items-center gap-2">
@@ -44,11 +75,7 @@
 
           </div>
         </div>
-
-        <a href="{{ route('createpost') }}" :active="request()->routeIs('createpost')">
-          <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-bold rounded-md text-white bg-blue-500 hover:text-gray-100 hover:bg-blue-600 focus:outline-none focus:bg-blue-500 active:bg-blue-700 transition">
-            CREATE A NEW POST !
-          </button>
-        </a>
+    @endforeach
     </div>
+  </div>
 </x-app-layout>

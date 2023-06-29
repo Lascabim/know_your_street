@@ -23,6 +23,10 @@
                     <x-nav-link href="{{ route('chats') }}" :active="request()->routeIs('chats')">
                         {{ __('Chats') }}
                     </x-nav-link>
+
+                    <x-nav-link href="{{ route('profile') }}" :active="request()->routeIs('profile')">
+                        {{ __('Profille') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -120,7 +124,7 @@
                                 </div>
 
                                 <x-dropdown-link href="{{ route('profile.show') }}">
-                                    {{ __('Profile') }}
+                                    {{ __('Options') }}
                                 </x-dropdown-link>
 
                                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -180,6 +184,10 @@
             <x-responsive-nav-link href="{{ route('chats') }}" :active="request()->routeIs('chats')">
                 {{ __('Chats') }}
             </x-responsive-nav-link>
+
+            <x-responsive-nav-link href="{{ route('profile') }}" :active="request()->routeIs('profile')">
+                {{ __('Profile') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
@@ -203,7 +211,7 @@
                 @if (Auth::check())
                     <!-- Account Management --> 
                     <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                        {{ __('Profile') }}
+                        {{ __('Options') }}
                     </x-responsive-nav-link>
 
                     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())

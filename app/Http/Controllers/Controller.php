@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 
 class Controller extends BaseController
 {
@@ -30,5 +31,26 @@ class Controller extends BaseController
             'user' =>  $user,
         ]);
     }
+    
+    function profilePage()
+    {
+        $name = Auth::user()->name;
 
+        $posts = Posts::all()->where('author', $name);
+        $user = User::where('name', $name)->firstOrFail();
+        return view('profile', [
+            'posts' => $posts,
+            'user' =>  $user,
+        ]);
+    }
+
+    function profileSearch($name)
+    {
+        $posts = Posts::all()->where('author', $name);
+        $user = User::where('name', $name)->firstOrFail();
+        return view('profile', [
+            'posts' => $posts,
+            'user' =>  $user,
+        ]);
+    }
 }

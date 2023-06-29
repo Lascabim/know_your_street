@@ -44,6 +44,7 @@ class ImagePreview extends Component
         
         $this->validate([
             'title' => 'required',
+            'image' => 'required',
             'duration' => 'required|not_in:Duração da Publicação'
         ]);
 

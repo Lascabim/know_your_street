@@ -19,6 +19,18 @@ Route::get('/', [Controller::class,'welcomePage'])->name('welcome');
 Route::get('/welcome', [Controller::class,'welcomePage'])->name('welcome');
 Route::get('/welcome/{url}', [Controller::class, 'welcomeSearch'])->name('welcome/');
 
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/profile', [Controller::class, 'profilePage'])->name('profile');
+});
+
+
+Route::get('/profile/{name}', [Controller::class, 'profileSearch'])->name('profile/');
+
+
 
 Route::post('/get-location', function (Request $request) {
     function calculateDistance($latitude1, $longitude1, $latitude2, $longitude2)
@@ -36,7 +48,7 @@ Route::post('/get-location', function (Request $request) {
         $deltaLat = $latTo - $latFrom;
         $deltaLon = $lonTo - $lonFrom;
         $angle = 2 * asin(sqrt(pow(sin($deltaLat / 2), 2) +
-            cos($latFrom) * cos($latTo) * pow(sin($deltaLon / 2), 2)));
+        cos($latFrom) * cos($latTo) * pow(sin($deltaLon / 2), 2)));
 
         // Calculate the distance
         $distance = $angle * $earthRadius;
@@ -53,7 +65,7 @@ Route::post('/get-location', function (Request $request) {
 
     $distance = calculateDistance($postLatitude, $postLongitude, $latitude, $longitude);
 
-    if ($distance <= 2) {
+    if ($distance >= 5) {
         return response()->json(['distance' => $distance,'success' => false]);
     } else {
         return response()->json(['distance' => $distance,'success' => true]);

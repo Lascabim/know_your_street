@@ -1,7 +1,5 @@
 <x-app-layout>
     <div class="flex flex-col items-center justify-center">
-      <!-- <p id="latitude"></p>
-      <p id="longitude"></p> -->
 
       @foreach($posts as $post)
       <script>
@@ -68,7 +66,8 @@
                   <img class="rounded-full h-14" src="/storage/{{ $user->profile_photo_path }}" alt="">            
                 @endif
 
-                <h1 class="text-md">{{ $user->name }}</h1>
+                <a href="{{ route('profile/', ['name' => $user->name]) }}" class="group"><h1 class="text-md">{{ $user->name }}</h1></a>
+                
                 @endif
               @endforeach
             </div>
@@ -81,7 +80,7 @@
           @endif
 
           <div>
-            <p class="text-center mt-2">Message: <strong> {{ $post->title }} </strong></p>
+            <p class="text-left px-3 mt-2">Message: <strong> {{ $post->title }} </strong></p>
           </div>
           
           <div class="flex items-center justify-between relative px-3 p-3">
