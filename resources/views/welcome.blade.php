@@ -1,54 +1,55 @@
 <x-app-layout>
     <div class="flex flex-col items-center justify-center">
-
+      
+    @if(count($posts) > 0)
       @foreach($posts as $post)
-      <script>
-        function getLocation() {
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-          } else {
-            console.log("Geolocation is not supported by this browser.");
-          }
-        }
-
-        function showPosition(position) {
-          var latitude = position.coords.latitude;
-          var longitude = position.coords.longitude;
-
-          var postLatitude = {{ $post->latitude }};
-          var postLongitude = {{ $post->longitude }};
-
-          // Get the CSRF token value
-          var csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-          // Make an AJAX request to the Laravel route
-            $.ajax({
-                url: '/get-location',
-                method: 'POST',
-                data: {
-                    latitude: latitude,
-                    longitude: longitude,
-                    postLatitude: postLatitude,
-                    postLongitude: postLongitude          
-                },
-                success: function(response) {
-                    // Handle the response from the server
-                    console.log(response);
-
-                    if(response.success) {
-                      $('#div-' + {{ $loop->index }}).show();
-                    } else {
-                      $('#div-' + {{ $loop->index }}).hide();
-                    }
-                },
-                error: function(xhr) {
-                    console.log(xhr.responseText);
-                }
-            });
+        <script>
+          function getLocation() {
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+              console.log("Geolocation is not supported by this browser.");
+            }
           }
 
-          getLocation();
-      </script>
+          function showPosition(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            var postLatitude = {{ $post->latitude }};
+            var postLongitude = {{ $post->longitude }};
+
+            // Get the CSRF token value
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            // Make an AJAX request to the Laravel route
+              $.ajax({
+                  url: '/get-location',
+                  method: 'POST',
+                  data: {
+                      latitude: latitude,
+                      longitude: longitude,
+                      postLatitude: postLatitude,
+                      postLongitude: postLongitude          
+                  },
+                  success: function(response) {
+                      // Handle the response from the server
+                      console.log(response);
+
+                      if(response.success) {
+                        $('#div-' + {{ $loop->index }}).show();
+                      } else {
+                        $('#div-' + {{ $loop->index }}).hide();
+                      }
+                  },
+                  error: function(xhr) {
+                      console.log(xhr.responseText);
+                  }
+              });
+            }
+
+            getLocation();
+        </script>
         <div id="div-{{ $loop->index }}" class="rounded-lg max-w-[400px] w-[85vw] mb-14 py-3 " style="box-shadow: rgba(0, 0, 0, 0.84) 0px 3px 8px;">
           <div class="flex justify-between items-center mb-2 px-3">
             <div class="flex justify-start items-center gap-2">
@@ -60,7 +61,7 @@
                   @endphp
                   
                   <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                      <img class="h-10 w-10 rounded-full object-cover" src="https://ui-avatars.com/api/?name={{$firstLetter}}&color=7F9CF5&background=EBF4FF" alt="" />
+                      <img class="h-14 w-14 rounded-full object-cover" src="https://ui-avatars.com/api/?name={{$firstLetter}}&color=7F9CF5&background=EBF4FF" alt="" />
                   </button>
                 @else
                   <img class="rounded-full h-14" src="/storage/{{ $user->profile_photo_path }}" alt="">            
@@ -71,6 +72,14 @@
                 @endif
               @endforeach
             </div>
+
+              @if (Auth::check())
+                @if (Auth::user()->name === $post->author)
+                  <div>
+                    <a href="{{ route('delete/', ['id' => $post->id]) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                  </div>
+                @endif
+              @endif
           </div>
 
           @if ($post->image_path !== null )
@@ -99,5 +108,8 @@
           </div>
         </div>
       @endforeach
+    @else
+          <h1>NÃO HÁ POSTS DISPONÍVEIS NUM RAIO DE 5 KM</h1>
+    @endif
     </div>
 </x-app-layout>

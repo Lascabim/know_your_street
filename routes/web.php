@@ -30,6 +30,8 @@ Route::middleware([
 
 Route::get('/profile/{name}', [Controller::class, 'profileSearch'])->name('profile/');
 
+Route::get('/delete/{id}', [Controller::class, 'deletePost'])->name('delete/');
+
 
 
 Route::post('/get-location', function (Request $request) {

@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Posts;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class DeleteExpiredPosts extends Command
 {
@@ -28,7 +28,23 @@ class DeleteExpiredPosts extends Command
 
     public function handle()
     {
-        Posts::where('expire', '<=', Carbon::now())->delete();
+
+        $expiredPosts = DB::table('posts')
+            ->where('EXPIRE', '<', now())
+            ->get();
+
+        foreach ($expiredPosts as $post) {
+            // Delete the image file from the folder
+            $imagePath = public_path($post->image_path);
+            File::delete($imagePath);
+
+            // Delete the post from the database
+            DB::table('posts')
+                ->where('id', $post->id)
+                ->delete();
+        }
+
         $this->info('Expired posts deleted successfully.');
+
     }
 }

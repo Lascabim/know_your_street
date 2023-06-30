@@ -25,8 +25,8 @@
       </div>
     </div>
 
-    <div>
-      <h1 class="font-bold text-2xl">Publicações Ativas {{ count($posts)}}</h1>
+    <div  style="border-top: 2px solid rgba(0,0,0,1);" class="w-full text-center">
+      <h1 class="w-full font-bold text-2xl m-3">Publicações Ativas {{ count($posts)}}</h1>
     </div>
 
     <div class="flex flex-wrap items-center justify-center gap-12">

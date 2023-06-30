@@ -6,6 +6,7 @@ use App\Models\Posts;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\File;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 
@@ -52,5 +53,20 @@ class Controller extends BaseController
             'posts' => $posts,
             'user' =>  $user,
         ]);
+    }
+
+    function deletePost($id)
+    {
+        $post = Posts::find($id);
+
+        if ($post) {
+            $imagePath = public_path($post->image_path);
+            File::delete($imagePath);
+    
+            $post->delete();
+            return back()->with('success', 'Post deletado com sucesso.');
+        } else {
+            return back()->with('error', 'Post não encontrado.');
+        }
     }
 }
