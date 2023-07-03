@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="flex flex-col items-center justify-center gap-4">
-      <div class="rounded-lg max-w-[400px] w-[85vw] mb-14 py-3" style="box-shadow: rgba(0, 0, 0, 0.84) 0px 3px 8px;">
+      <div class="rounded-lg max-w-[400px] w-[85vw] tele:mb-3 mb-14 py-3 bg-white" style="box-shadow: rgba(0, 0, 0, 0.84) 0px 3px 8px;">
           <div class="flex justify-between items-center mb-2 px-3">
             <div class="flex justify-start items-center gap-2">
                 @if($user->name === $post->author)
@@ -47,7 +47,7 @@
 
         <a href="{{ route('createpost') }}" :active="request()->routeIs('createpost')">
           <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-bold rounded-md text-white bg-blue-500 hover:text-gray-100 hover:bg-blue-600 focus:outline-none focus:bg-blue-500 active:bg-blue-700 transition">
-            CREATE A NEW POST !
+            CREATE A POST YOURSELF !
           </button>
         </a>
     </div>

@@ -1,6 +1,6 @@
 <div>
     <form wire:submit.prevent="submit" class="flex flex-col items-center justify-center h-4/5">
-            <h1 class="font-bold text-lg">Título do Post</h1>
+            <h1 class="font-bold text-lg text-zinc-100">Título do Post</h1>
             <input type="text" style="box-shadow: black 0px 0px 7px;" class="w-full tele:mb-4 mb-12" required minlength="5" wire:model="title">
 
             <div class="max-w-xs pb-1 rounded-xl bg-stone-300" style="box-shadow: black 0px 5px 15px;">

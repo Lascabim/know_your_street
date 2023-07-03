@@ -109,7 +109,12 @@
         </div>
       @endforeach
     @else
-          <h1>NÃO HÁ POSTS DISPONÍVEIS NUM RAIO DE 5 KM</h1>
+      <div class="flex items-center justify-center h-[80vh]">
+        <div class="text-center">
+          <h1 class="text-4xl font-bold">Parece que não há nenhum post num raio de 5km...</h1>
+          <h2 class="text-2xl mt-4">Cria um tu mesmo!</h2>
+        </div>
+      </div>
     @endif
     </div>
 </x-app-layout>

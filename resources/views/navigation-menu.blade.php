@@ -13,7 +13,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')">
-                        {{ __('Welcome') }}
+                        {{ __('Principal') }}
                     </x-nav-link>
 
                     <x-nav-link href="{{ route('createpost') }}" :active="request()->routeIs('createpost')">
@@ -25,7 +25,7 @@
                     </x-nav-link>
 
                     <x-nav-link href="{{ route('profile') }}" :active="request()->routeIs('profile')">
-                        {{ __('Profille') }}
+                        {{ __('Perfil') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -120,11 +120,11 @@
                             @if (Auth::check()) 
                                 <!-- Account Management -->
                                 <div class="block px-4 py-2 text-xs text-gray-400">
-                                    {{ __('Manage Account') }}
+                                    {{ __('Gestão da Conta') }}
                                 </div>
 
                                 <x-dropdown-link href="{{ route('profile.show') }}">
-                                    {{ __('Options') }}
+                                    {{ __('Definições') }}
                                 </x-dropdown-link>
 
                                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -141,7 +141,7 @@
 
                                     <x-dropdown-link href="{{ route('logout') }}"
                                             @click.prevent="$root.submit();">
-                                        {{ __('Log Out') }}
+                                        {{ __('Terminar Sessão') }}
                                     </x-dropdown-link>
                                 </form>
                             @else
@@ -174,7 +174,7 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')">
-                {{ __('Welcome') }}
+                {{ __('Principal') }}
             </x-responsive-nav-link>
 
             <x-responsive-nav-link href="{{ route('createpost') }}" :active="request()->routeIs('createpost')">
@@ -186,7 +186,7 @@
             </x-responsive-nav-link>
 
             <x-responsive-nav-link href="{{ route('profile') }}" :active="request()->routeIs('profile')">
-                {{ __('Profile') }}
+                {{ __('Perfil') }}
             </x-responsive-nav-link>
         </div>
 
@@ -226,7 +226,7 @@
 
                         <x-responsive-nav-link href="{{ route('logout') }}"
                                     @click.prevent="$root.submit();">
-                            {{ __('Log Out') }}
+                            {{ __('Terminar Sessão') }}
                         </x-responsive-nav-link>
                     </form>
 
