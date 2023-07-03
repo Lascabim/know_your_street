@@ -50,7 +50,7 @@
 
             getLocation();
         </script>
-        <div id="div-{{ $loop->index }}" class="rounded-lg max-w-[400px] w-[85vw] mb-14 py-3 " style="box-shadow: rgba(0, 0, 0, 0.84) 0px 3px 8px;">
+        <div id="div-{{ $loop->index }}" class="bg-white rounded-lg max-w-[400px] w-[85vw] mb-14 py-3 " style="box-shadow: rgba(0, 0, 0, 0.84) 0px 3px 8px;">
           <div class="flex justify-between items-center mb-2 px-3">
             <div class="flex justify-start items-center gap-2">
               @foreach($users as $user)

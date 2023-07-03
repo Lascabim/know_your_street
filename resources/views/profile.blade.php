@@ -1,19 +1,26 @@
 <x-app-layout>
   <div class="flex flex-col flex-wrap items-center justify-center gap-10 px-8">
-    <div class="flex flex-col flex-wrap items-center justify-center rounded-xl" style="box-shadow: rgba(0, 0, 0, 0.84) 0px 3px 8px;">
+    <div class="flex flex-col flex-wrap items-center justify-center rounded-xl bg-white w-[320px]" style="box-shadow: rgba(0, 0, 0, 0.84) 0px 3px 8px;">
+      <a href="{{ route('profile/', ['name' => $user->name]) }}" class="group"><h1 class="text-xl">Utilizador: {{ $user->name }}</h1></a>
+
       <div class="flex justify-start items-center gap-2 py-4 px-6">
-        @if ($user->profile_photo_path == null )
-          @php
-            $firstLetter = strtoupper(substr($user->name, 0, 1));
-          @endphp
-                    
-          <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-            <img class="h-24 rounded-full object-cover" src="https://ui-avatars.com/api/?name={{$firstLetter}}&color=7F9CF5&background=EBF4FF" alt="" />
-          </button>
-        @else
-          <img class="rounded-full h-24" src="/storage/{{ $user->profile_photo_path }}" alt="">            
-        @endif
-          <a href="{{ route('profile/', ['name' => $user->name]) }}" class="group"><h1 class="text-2xl">{{ $user->name }}</h1></a>
+        <div>
+          @if ($user->profile_photo_path == null )
+            @php
+              $firstLetter = strtoupper(substr($user->name, 0, 1));
+            @endphp
+                      
+            <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+              <img class="w-24 rounded-full object-cover" src="https://ui-avatars.com/api/?name={{$firstLetter}}&color=7F9CF5&background=EBF4FF" alt="" />
+            </button>
+          @else
+            <img class="rounded-full w-24" src="/storage/{{ $user->profile_photo_path }}" alt="">            
+          @endif
+        </div>
+
+        <div class="w-full text-center">
+          <h1 class="w-full font-bold text-lg">Publicações {{ count($posts)}}</h1>
+        </div>
       </div>
       
       <div>
@@ -25,13 +32,9 @@
       </div>
     </div>
 
-    <div  style="border-top: 2px solid rgba(0,0,0,1);" class="w-full text-center">
-      <h1 class="w-full font-bold text-2xl m-3">Publicações Ativas {{ count($posts)}}</h1>
-    </div>
-
     <div class="flex flex-wrap items-center justify-center gap-12">
     @foreach($posts as $post)
-      <div class="rounded-lg max-w-[400px] w-[85vw] mb-14 py-3" style="box-shadow: rgba(0, 0, 0, 0.84) 0px 3px 8px;">
+      <div class="rounded-lg max-w-xs w-[85vw] mb-14 py-3 bg-white" style="box-shadow: rgba(0, 0, 0, 0.84) 0px 3px 8px;">
           <div class="flex justify-between items-center mb-2 px-3">
             <div class="flex justify-start items-center gap-2">
                 @if($user->name === $post->author)

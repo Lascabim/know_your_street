@@ -1,18 +1,18 @@
 <div>
     <form wire:submit.prevent="submit" class="flex flex-col items-center justify-center h-4/5">
             <h1 class="font-bold text-lg">Título do Post</h1>
-            <input type="text" style="box-shadow: black 0px 0px 7px;" class="w-full mb-12" required minlength="5" wire:model="title">
+            <input type="text" style="box-shadow: black 0px 0px 7px;" class="w-full tele:mb-4 mb-12" required minlength="5" wire:model="title">
 
             <div class="max-w-xs pb-1 rounded-xl bg-stone-300" style="box-shadow: black 0px 5px 15px;">
                 <div class="relative rounded-xl">
                     <label for="arquivo" class="cursor-pointer absolute w-full h-full text-transparent">Enviar arquiv</label>
                     <input class="hidden" type="file" wire:model="image" name="arquivo" id="arquivo">
 
-                    <div class="max-w-xs h-[400px]">
+                    <div class="max-w-xs tele:h-[50vh] h-[400px]">
                         @if ($image == false or $errors->has('image'))
-                            <img class="w-full h-[400px] rounded-t-xl object-cover object-center" src="/assets/add.png" alt="Post Image">
+                            <img class="w-full tele:h-[50vh] h-[400px] rounded-t-xl object-cover object-center" src="/assets/add.png" alt="Post Image">
                         @else
-                            <img class="w-full h-[400px] rounded-t-xl object-cover object-center" src="{{ $image->temporaryUrl() }}" alt="Post Image">
+                            <img class="w-full tele:h-[50vh] h-[400px] rounded-t-xl object-cover object-center" src="{{ $image->temporaryUrl() }}" alt="Post Image">
                         @endif
                     </div> 
                 </div>
