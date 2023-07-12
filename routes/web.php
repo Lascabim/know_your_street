@@ -67,7 +67,7 @@ Route::post('/get-location', function (Request $request) {
 
     $distance = calculateDistance($postLatitude, $postLongitude, $latitude, $longitude);
 
-    if ($distance >= 5) {
+    if ($distance >= 15) {
         return response()->json(['distance' => $distance,'success' => false]);
     } else {
         return response()->json(['distance' => $distance,'success' => true]);

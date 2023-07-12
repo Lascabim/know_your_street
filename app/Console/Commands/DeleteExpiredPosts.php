@@ -29,22 +29,22 @@ class DeleteExpiredPosts extends Command
     public function handle()
     {
 
-        $expiredPosts = DB::table('posts')
-            ->where('EXPIRE', '<', now())
-            ->get();
+        // $expiredPosts = DB::table('posts')
+        //     ->where('expire', '<', now())
+        //     ->get();
 
-        foreach ($expiredPosts as $post) {
-            // Delete the image file from the folder
-            $imagePath = public_path($post->image_path);
-            File::delete($imagePath);
+        // foreach ($expiredPosts as $post) {
+        //     // Delete the image file from the folder
+        //     $imagePath = public_path($post->image_path);
+        //     File::delete($imagePath);
 
-            // Delete the post from the database
-            DB::table('posts')
-                ->where('id', $post->id)
-                ->delete();
-        }
+        //     // Delete the post from the database
+        //     DB::table('posts')
+        //         ->where('id', $post->id)
+        //         ->delete();
+        // }
 
-        $this->info('Expired posts deleted successfully.');
+        // $this->info('Expired posts deleted successfully.');
 
     }
 }

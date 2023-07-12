@@ -11,10 +11,10 @@
             @endphp
                       
             <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-              <img class="w-24 rounded-full object-cover" src="https://ui-avatars.com/api/?name={{$firstLetter}}&color=7F9CF5&background=EBF4FF" alt="" />
+              <img class="h-10 w-16 rounded-full object-cover" src="https://ui-avatars.com/api/?name={{$firstLetter}}&color=7F9CF5&background=EBF4FF" alt="" />
             </button>
           @else
-            <img class="rounded-full w-24" src="/storage/{{ $user->profile_photo_path }}" alt="">            
+            <img class="rounded-full h-10 w-16" src="/storage/{{ $user->profile_photo_path }}" alt="">            
           @endif
         </div>
 
@@ -47,12 +47,20 @@
                       <img class="h-10 w-10 rounded-full object-cover" src="https://ui-avatars.com/api/?name={{$firstLetter}}&color=7F9CF5&background=EBF4FF" alt="" />
                   </button>
                 @else
-                  <img class="rounded-full h-14" src="/storage/{{ $user->profile_photo_path }}" alt="">            
+                  <img class="rounded-full h-14 w-14" src="/storage/{{ $user->profile_photo_path }}" alt="">            
                 @endif
 
                 <a href="{{ route('profile/', ['name' => $user->name]) }}" class="group"><h1 class="text-md">{{ $user->name }}</h1></a>
                 @endif
             </div>
+
+            @if (Auth::check())
+                @if (Auth::user()->name === $post->author)
+                  <div>
+                    <a href="{{ route('delete/', ['id' => $post->id]) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                  </div>
+                @endif
+              @endif
           </div>
 
           <div class="rounded-xl py-3">
