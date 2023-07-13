@@ -22,7 +22,7 @@
           </div>
 
           <div class="rounded-xl py-3">
-            <img class="w-full font-bold" src="{{ $post->image_path }}" alt="">
+            <img style="max-height: 400px;" class="w-full font-bold" src="{{ $post->image_path }}" alt="">
           </div>
 
           <div>

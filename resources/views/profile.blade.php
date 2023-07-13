@@ -1,6 +1,6 @@
 <x-app-layout>
   <div class="flex flex-col flex-wrap items-center justify-center gap-10 px-8">
-    <div class="flex flex-col flex-wrap items-center justify-center rounded-xl bg-white w-[320px]" style="box-shadow: rgba(0, 0, 0, 0.84) 0px 3px 8px;">
+    <div class="flex flex-col flex-wrap items-center justify-center rounded-xl bg-white w-[320px] py-3" style="box-shadow: rgba(0, 0, 0, 0.84) 0px 3px 8px;">
       <a href="{{ route('profile/', ['name' => $user->name]) }}" class="group"><h1 class="text-xl">Utilizador: {{ $user->name }}</h1></a>
 
       <div class="flex justify-start items-center gap-2 py-4 px-6">
@@ -64,7 +64,7 @@
           </div>
 
           <div class="rounded-xl py-3">
-            <img class="w-full font-bold" src="{{ $post->image_path }}" alt="">
+            <img class="w-full font-bold h-[320px]" src="{{ $post->image_path }}" alt="">
           </div>
 
           <div>
